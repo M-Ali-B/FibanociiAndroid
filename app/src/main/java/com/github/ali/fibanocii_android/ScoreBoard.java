@@ -28,6 +28,7 @@ public class ScoreBoard extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mplayAgain = new Intent(ScoreBoard.this,MainActivity.class);
                 startActivity(mplayAgain);
+                finish();
 
             }
         });

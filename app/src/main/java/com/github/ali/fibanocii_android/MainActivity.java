@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
             mscoreBoard.putExtra("score",String.valueOf(mFibanocii.getScore()));
             Log.d("score",""+mFibanocii.getScore());
             startActivity(mscoreBoard);
+            finish();
         }
     }
 
