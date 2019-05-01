@@ -1,7 +1,9 @@
 package com.github.ali.fibanocii_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     int screenRes = 0;
     int numberList[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
     String result = "";
+    int counter = 0;
+    long FIBANOCII_NUMBER = 9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,23 +128,40 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void AddDigit(int num) {
+
 //        ArrayList<Integer> arrayList = new ArrayList<>();
 //        arrayList.add(num);
+
         result += num;
-        low_screen.setText(String.valueOf(result));
+        screen.setText(String.valueOf(result));
 //long sequenceNumbers = mFibanocii.fibanociiGenerators();
 
 //        long userInput = StringToLong(result);
 //        Log.d("test", "" + userInput);
-        mFibanocii.fibanociiGenerators(num);
+        //int num_2 = Math.toIntExact(StringToLong(result));
+//        mFibanocii.fibanociiGenerators(result,counter);
+//        counter++;
 
 
     }
 
 
     public void AddSign(String sign) {
-        result += sign;
-        low_screen.setText(result);
+        //result += sign;
+        if (counter < FIBANOCII_NUMBER) {
+            low_screen.setText(result);
+
+            mFibanocii.fibanociiGenerators(result, counter, FIBANOCII_NUMBER);
+            counter++;
+            result = "";
+        }
+        else{
+
+            Intent mscoreBoard = new Intent(MainActivity.this,ScoreBoard.class);
+            mscoreBoard.putExtra("score",String.valueOf(mFibanocii.getScore()));
+            Log.d("score",""+mFibanocii.getScore());
+            startActivity(mscoreBoard);
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.github.ali.fibanocii_android;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -10,8 +11,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class Fibanocii {
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     TextView screen;
+
+    private int score = 0;
 
     public Fibanocii(TextView screen) {
         this.screen = screen;
@@ -33,17 +43,17 @@ public class Fibanocii {
 //    private static int fibanociiGenerators() {
 //    }
 
-    public void fibanociiGenerators(int userInput) {                          // take int number
-        MainActivity mainActivity = new MainActivity();
-        long n = 50, t1 = 0, t2 = 1;
+    public void fibanociiGenerators(String userInput, int counter,long n) {                          // take int number
+        //MainActivity mainActivity = new MainActivity();
+        ArrayList<Long> arrayList = new ArrayList<>();
+        long  t1 = 0, t2 = 1;
         System.out.print("First " + n + " terms: ");
         // convert to loong
         for (int i = 0; i <= n; ++i) {
 
-            ArrayList<Long> arrayList = new ArrayList<>();
+
             arrayList.add(t1);
-            long convertedUserInput = IntToLong(userInput);
-            numberMatcher(arrayList, convertedUserInput);
+
 //    mainActivity.numberMatcher(arrayList);
 
             //numberMatcher(t1);
@@ -54,28 +64,27 @@ public class Fibanocii {
             t1 = t2;
             t2 = sum;
         }
+        long convertedUserInput = StringToLong(userInput);
+        numberMatcher(arrayList, convertedUserInput, counter);
     }
 
-    public boolean numberMatcher(ArrayList<Long> arraylist, long number) {
+    public void numberMatcher(ArrayList<Long> arraylist, long number, int counter) {
 
         // MainActivity mainActivity = new MainActivity();
         // long number = 2;
 
-        if (arraylist.contains(number)) {
+        if (counter < arraylist.size()) {
 
-            System.out.println("Matched");
-            // mainActivity.matchFound.setText("Matched");
-        TokenColorize((int) number);
-
-            Log.d("test4", "matched");
-            return true;
-
+            if (arraylist.get(counter).equals(number)) {
+                        score +=2;
+                        setScore(score);
+            } else {
+                TokenColorize((int) number);
+                score-=2;
+                setScore(score);
+            }
         } else
-            System.out.println("Not matched");
-        Log.d("test4", "Not matched");
-        return false;
-        // mainActivity.matchFound.setText("Not Matched");
-
+            System.out.println("Not Enough series");
 
     }
 
@@ -94,6 +103,17 @@ public class Fibanocii {
         screen.setText(WordtoSpan);
     }
 
+    public long StringToLong(String input){
+
+        long convertedInput = Long.parseLong(input);
+        return convertedInput;
+    }
+
+    public void Score(){
+
+
+
+    }
 }
 
 
